@@ -5,10 +5,7 @@ import React, { useState } from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-import { Provider } from 'react-redux';
-import configureStore from './src/store/configureStore';
-const store = configureStore();
-import AppNavigator from './src/navigation/AppNavigator';
+import AppNavigator from './navigation/AppNavigator';
 
 export default function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false);
@@ -23,12 +20,10 @@ export default function App(props) {
     );
   } else {
     return (
-      <Provider store={store}>
-        {/* <View style={styles.container} > */}
+      <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <AppNavigator />
-        {/* </View> */}
-      </Provider>
+      </View>
     );
   }
 }
@@ -49,7 +44,7 @@ async function loadResourcesAsync() {
   ]);
 }
 
-function handleLoadingError(error: Error) {
+function handleLoadingError(error) {
   // In this case, you might want to report the error to your error reporting
   // service, for example Sentry
   console.warn(error);
